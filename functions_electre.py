@@ -3,8 +3,7 @@
 import os
 import numpy as np
 import math
-
-
+from input_checking import *
 
 def partial_concordance(a, b, qb, pb):
     """ Computes the partial concordance indices cj(a,b). Parameters to provide are (a, b, qb, pb)
@@ -49,7 +48,7 @@ def partial_concordance_approx(a, b, qb, pb):
 
 
 
-def comprehensive_concordance(cj, w):
+def comprehensive_concordance(c_ab, w):
     """ Computes the comprehensive concordance index C(a,b) (type 'float')
      Parameters to provide are (c_ab, k)
      such that:
@@ -59,8 +58,8 @@ def comprehensive_concordance(cj, w):
 
     C_ab = 0
     for i in range(0, np.size(w)):
-        C_ab = C_ab + (cj[i]*k[i])
-    return (C_ab / np.sum(k))
+        C_ab = C_ab + (c_ab[i]*w[i])
+    return (C_ab / np.sum(w))
 
 def discordance(a, b, pb, vb):
     """ Computes the discordance index dj(a,b)
@@ -83,19 +82,37 @@ def discordance(a, b, pb, vb):
             d_ab[i] = ((a[i] - b[i] + pb[i])/(pb[i] - vb[i]))
     return d_ab
 
-def credibility(c, dj):
+def credibility(C_ab, d_ab):
     """ computes the credibility index rho(a,b) (type 'float'
      Parameters to provide are (c, dj)
      - c: comprehensive concordance C(a,b), type 'float"
      -dj: vector of individual discordance indices, dj =[d1(a,b), ..., dj(a,b)]
     """
     ND = 1
-    for i in range(0, np.size(dj)):
-        if dj[i] > c:
-            ND = ND*(1 - dj[i])/(1-c)
-    rho= c*ND
+    for i in range(0, np.size(d_ab)):
+        if d_ab[i] > C_ab:
+            ND = ND*(1 - d_ab[i])/(1-C_ab)
+    rho= C_ab*ND
     return(rho)
 
+
+def electre_3(a,b,qb,pb,vb,w,cut_level):
+    """ compute the outranking relation S(a,b)? btw alternatives a and b. return aSb or not(aSb)"""
+    approx = input_bool("Use approximation for cj: yes/no ?")
+    if approx == False:
+        cj = partial_concordance(a, b, qb, pb)
+    else:
+        cj = partial_concordance_approx(a, b, qb, pb)
+
+    C = comprehensive_concordance(cj, w)
+    dj = discordance(a,b, pb, vb)
+    rho = credibility(C,dj)
+
+    S=False
+    if rho>cut_level:
+        S= True
+
+    return list([cj,C,dj,rho,S])
 
 
 # test
