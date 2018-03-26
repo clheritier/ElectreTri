@@ -96,9 +96,8 @@ def credibility(C_ab, d_ab):
     return(rho)
 
 
-def electre_3(a,b,qb,pb,vb,w,cut_level):
+def electre_3(a,b,qb,pb,vb,w,cut_level,approx):
     """ compute the outranking relation S(a,b)? btw alternatives a and b. return aSb or not(aSb)"""
-    approx = input_bool("Use approximation for cj: yes/no ?")
     if approx == False:
         cj = partial_concordance(a, b, qb, pb)
     else:
