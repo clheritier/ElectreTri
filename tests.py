@@ -83,5 +83,14 @@ for i in range(0,h,1):
         #       [[cj(a,b2)], C(a,b2), [dj(a,b2)], rho(a,b2), boolean]]]
         # boolean => true means aSb, False means not(aSb)
 
-
 ### 2| Assignment procedure
+
+for i in range(h,0,-1):
+    if ab[i-1][4] == True:   #return boolean S(a,bh) True/false
+        print("The pessimistic procedure assigns 'a' to category C{}".format((i+1)))
+        break
+else:
+    print("The pesimistic procedure assigns 'a' to category C1") ## on supppose que a surclasse forcement b0
+    # , et par defaut assigne a la moins bonne des cate c0
+
+### 3| Contribution

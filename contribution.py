@@ -20,7 +20,7 @@ beta_ = 0.5
 
 threshold = lambda_ * beta_
 
-vec = [2,3,6,7,4,2,1,9]
+vec = [0.03,0.46,0.17,0.22,0.038,0.006,0.04,0.03]
 
 print("Computing best subsets")
 print("lambda: ",lambda_)
@@ -38,9 +38,9 @@ print("set of ids: ",set_id)
 
 i = 0
 while i< len(vec) and len(solutions) == 0:
-	print("Evaluating subsets of size: ",(i+1))
-	sets_of_ids_size_i = map(set, itertools.combinations(set_id, i+1))
-	print("number of sets: ",len(sets_of_ids_size_i))
+	print("Evaluating subsets of size: ",(i+1))   ## ok
+	sets_of_ids_size_i = map(set, itertools.combinations(set_id, i+1))   # combinations(p,r) 	r-length tuples, in sorted order. combinations('ABCD', 2) = AB AC AD BC BD CD
+	print("number of sets: ",len(sets_of_ids_size_i))                    # map(function_to_apply, list_of_inputs)
 	print("searching...")
 	for s in sets_of_ids_size_i:
 		sum_ = 0

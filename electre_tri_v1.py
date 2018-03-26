@@ -23,15 +23,15 @@ h = p-1 #profil bh to define
 print("--> Cp categories, p = 1,..,{} , and \n"
       "--> bh profiles to define, h = 1,..,p-1, bh being the upper profile of Ch and lower profile of Ch+1. \n".format(p))
 
-# def criteria, weights, lambda, alternative a to assign
-n = input_int_positif("enter the number of criteria: ")
+# define criteria, weights, lambda, alternative a to assign
+n = input_int_positif("Enter the number of criteria: ")
 w = input_array("Enter the weights coefficients (values separated with ','): ", n)
 
 cut_level = input_lambda("Enter value of the cutting level lambda: ")
 
-a = input_array("Enter the performance vector g(a) \n (values separated with ','): ",n)
+a = input_array("Enter the performance vector g(a) (values separated with ','): ",n)
 
-### definir les profils bh
+### define profiles bh
 
 b = np.empty((0,n))
 for i in range(0,h,1):
