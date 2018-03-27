@@ -77,3 +77,17 @@ def input_bool(message):
            print("Invalid input, enter yes or no.")
 
 
+###############################################################
+def input_gamma(message):
+    """converting and checking: str(input) to float in ]0,1]  if error: user has to enter an other one"""
+    while True:
+        try:
+            userInput = float(input(message))
+            if userInput>1 or userInput<=0:
+                    raise ValueError
+        except ValueError:
+            print("error, value must be in ]0, 1].")
+            continue
+        else:
+            return userInput
+            #break

@@ -114,7 +114,7 @@ def electre_3(a,b,qb,pb,vb,w,cut_level,approx):
     return list([cj,C,dj,rho,S])
 
 
-# test
+### test ###
 
 if __name__ == "__main__":
 

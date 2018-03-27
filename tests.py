@@ -1,5 +1,6 @@
 from functions_electre import *
 from input_checking import *
+from functions_contribution import *
 import numpy as np
 
 """ Electre tri with with pessimistic procedure: assign 'a' to one of the p predefined categories (delimited with profiles bh)
@@ -23,7 +24,7 @@ import numpy as np
 p = 3
 n = 8
 w = np.array([11.28,41.7,14.9,5.77,7.84,4.06,7.86,17])
-cut_level=0.93
+cut_level = 0.93
 a = np.array([-22,88,-52,-30,2,4,2,4])
 
 ### /!\ do not modify
@@ -83,14 +84,28 @@ for i in range(0,h,1):
         #       [[cj(a,b2)], C(a,b2), [dj(a,b2)], rho(a,b2), boolean]]]
         # boolean => true means aSb, False means not(aSb)
 
-### 2| Assignment procedure
+### 2| Assignment procedure (pessimistic)
 
 for i in range(h,0,-1):
     if ab[i-1][4] == True:   #return boolean S(a,bh) True/false
-        print("The pessimistic procedure assigns 'a' to category C{}".format((i+1)))
+        print("\n The pessimistic procedure assigns 'a' to category C{}".format((i+1)))
+        r = i-1 # return index of profile br such as aSbr
         break
 else:
-    print("The pesimistic procedure assigns 'a' to category C1") ## on supppose que a surclasse forcement b0
+    print("The pessimistic procedure assigns 'a' to category C1 \n") ## on supppose que a surclasse forcement b0
+    r=0
     # , et par defaut assigne a la moins bonne des cate c0
 
 ### 3| Contribution
+
+#/!\ if r != -1: # si surclasse profils b0 avec pessimitic procedure, il faudra regarder pourquoi b1Sa
+
+cj_abr = ab[r][0]*w/np.sum(w)
+lambda_abr = function_lambda_abr(cut_level, ab[r][2] , ab[r][1])
+
+
+print("\n Individual contributions c{j}(a,br): \n c{j}(a,b",r+1,")=",cj_abr)
+print("\n The cutting level lambda =", cut_level)
+print(" Threshold lambda(a,br) = ",lambda_abr)
+gamma_ = input_gamma(" Enter threshold 'gamma' such that the individual contribution of each criterion of I should exceed this minimal value, gamma in ]0,1]")
+
